@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#7952A8">
+  <title>BizBloom — Business Analytics Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="BizBloom home"><span class="brand-mark">✿</span><span>biz<span>bloom</span></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-menu" aria-label="Main navigation">
+        <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+        <a class="nav-link" href="#sales"><span>⌁</span> Sales analytics</a>
+        <a class="nav-link" href="#customers"><span>♙</span> Customers</a>
+        <a class="nav-link" href="#data"><span>▤</span> Data management</a>
+        <a class="nav-link" href="#insights"><span>✧</span> Insights</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">✿</div><strong>Grow with clarity</strong><p>Turn your business data into better decisions.</p><a href="#insights">Explore insights <span>↗</span></a></div>
+        <div class="profile"><div class="avatar">BB</div><div><strong>BizBloom Demo</strong><small>Analytics workspace</small></div><span class="profile-dots">•••</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuToggle" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div>
+        <div class="top-actions"><span class="live-dot"></span><span class="updated-label" id="updatedLabel">Demo dataset loaded</span><button class="icon-button" id="printBtn" title="Print report" aria-label="Print report">⎙</button></div>
+      </header>
+
+      <section class="welcome-banner" id="overview">
+        <div class="welcome-copy"><span class="eyebrow">YOUR BUSINESS, IN FULL BLOOM</span><h1>Good business starts<br>with <em>good insight.</em></h1><p>See what’s growing, understand what’s changing, and make your next move with confidence.</p><div class="banner-meta"><span>✦ Live performance snapshot</span><span id="dateRangeText">All available dates</span></div></div>
+        <div class="banner-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-flower">✿</div><div class="art-spark spark-one">✧</div><div class="art-spark spark-two">✦</div><div class="art-pill">+ Growth</div></div>
+      </section>
+
+      <section class="filter-panel" aria-label="Dashboard filters">
+        <div class="filter-heading"><div><span class="section-kicker">REFINE YOUR VIEW</span><h2>Dashboard filters</h2></div><button class="text-button" id="resetFilters">↺ Reset filters</button></div>
+        <div class="filter-grid">
+          <label>Date range<select id="dateFilter"><option value="all">All dates</option></select></label>
+          <label>Product<select id="productFilter"><option value="all">All products</option></select></label>
+          <label>Category<select id="categoryFilter"><option value="all">All categories</option></select></label>
+          <label>Region<select id="regionFilter"><option value="all">All regions</option></select></label>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><span class="section-kicker">AT A GLANCE</span><h2>Business overview</h2><p>Your key numbers, all in one place.</p></div><span class="period-chip">Filtered performance</span></div>
+        <div class="kpi-grid">
+          <article class="kpi-card revenue-card"><div class="kpi-top"><span class="kpi-icon">₹</span><span class="kpi-trend" id="revenueTrend">↗ Revenue</span></div><p>Total revenue</p><h3 id="totalRevenue">₹0</h3><small>Gross sales value</small></article>
+          <article class="kpi-card expense-card"><div class="kpi-top"><span class="kpi-icon">↗</span><span class="kpi-trend neutral">Operating</span></div><p>Total expenses</p><h3 id="totalExpenses">₹0</h3><small>Costs across orders</small></article>
+          <article class="kpi-card profit-card"><div class="kpi-top"><span class="kpi-icon">✧</span><span class="kpi-trend positive" id="profitBadge">Net result</span></div><p>Net profit</p><h3 id="netProfit">₹0</h3><small>Revenue minus expenses</small></article>
+          <article class="kpi-card orders-card"><div class="kpi-top"><span class="kpi-icon">▣</span><span class="kpi-trend neutral">Activity</span></div><p>Total orders</p><h3 id="totalOrders">0</h3><small>Individual transactions</small></article>
+          <article class="kpi-card customers-card"><div class="kpi-top"><span class="kpi-icon">♙</span><span class="kpi-trend neutral">Audience</span></div><p>Total customers</p><h3 id="totalCustomers">0</h3><small>Unique buyers</small></article>
+          <article class="kpi-card aov-card"><div class="kpi-top"><span class="kpi-icon">◈</span><span class="kpi-trend neutral">Per order</span></div><p>Average order value</p><h3 id="averageOrder">₹0</h3><small>Revenue per order</small></article>
+          <article class="kpi-card margin-card"><div class="kpi-top"><span class="kpi-icon">％</span><span class="kpi-trend positive">Efficiency</span></div><p>Profit margin</p><h3 id="profitMargin">0%</h3><small>Profit as % of revenue</small></article>
+        </div>
+      </section>
+
+      <section class="section-block" id="sales">
+        <div class="section-heading"><div><span class="section-kicker">SALES & PERFORMANCE</span><h2>Understand your momentum</h2><p>Track revenue, product contribution and regional performance.</p></div><span class="section-note">Charts update with filters</span></div>
+        <div class="chart-grid">
+          <article class="panel chart-panel wide-panel"><div class="panel-heading"><div><h3>Monthly revenue trend</h3><p>Revenue generated over time</p></div><div class="panel-tools"><span class="chart-tag lavender-tag">Revenue</span><button class="chart-download" data-chart="revenueChart" title="Download chart as PNG">↓ PNG</button></div></div><div class="chart-wrap"><canvas id="revenueChart" aria-label="Monthly revenue line chart"></canvas></div></article>
+          <article class="panel chart-panel"><div class="panel-heading"><div><h3>Sales by product</h3><p>Revenue contribution</p></div><div class="panel-tools"><span class="chart-tag pink-tag">Products</span><button class="chart-download" data-chart="productChart" title="Download chart as PNG">↓ PNG</button></div></div><div class="chart-wrap"><canvas id="productChart" aria-label="Sales by product bar chart"></canvas></div></article>
+          <article class="panel chart-panel"><div class="panel-heading"><div><h3>Revenue by region</h3><p>Where sales happen</p></div><div class="panel-tools"><span class="chart-tag peach-tag">Regions</span><button class="chart-download" data-chart="regionChart" title="Download chart as PNG">↓ PNG</button></div></div><div class="chart-wrap doughnut-wrap"><canvas id="regionChart" aria-label="Revenue by region doughnut chart"></canvas></div></article>
+          <article class="panel chart-panel"><div class="panel-heading"><div><h3>Monthly profit comparison</h3><p>Revenue less operating expenses</p></div><div class="panel-tools"><span class="chart-tag sage-tag">Profit</span><button class="chart-download" data-chart="profitChart" title="Download chart as PNG">↓ PNG</button></div></div><div class="chart-wrap"><canvas id="profitChart" aria-label="Monthly profit bar chart"></canvas></div></article>
+          <article class="panel insight-mini"><div class="mini-icon">✧</div><span class="section-kicker">BEST SELLER</span><h3 id="bestProduct">—</h3><p id="bestProductDetail">Product with the highest revenue in this view.</p><div class="mini-rule"></div><span class="mini-foot">Based on filtered sales</span></article>
+        </div>
+      </section>
+
+      <section class="section-block" id="customers">
+        <div class="section-heading"><div><span class="section-kicker">PEOPLE BEHIND THE NUMBERS</span><h2>Customer analytics</h2><p>Understand customer value and repeat buying behaviour.</p></div></div>
+        <div class="customer-grid">
+          <article class="panel customer-summary"><div class="panel-heading"><div><h3>Customer snapshot</h3><p>Unique buyers in this selection</p></div><span class="customer-emoji">♡</span></div><div class="customer-total" id="customerTotalLarge">0</div><div class="customer-split"><div><span class="split-dot new-dot"></span><strong id="newCustomers">0</strong><small>New customers</small></div><div><span class="split-dot returning-dot"></span><strong id="returningCustomers">0</strong><small>Returning customers</small></div></div><p class="small-note" id="customerSupportNote">New vs returning is based on first purchase date in the selected records.</p></article>
+          <article class="panel customer-chart-panel"><div class="panel-heading"><div><h3>Purchase distribution</h3><p>Order count per customer</p></div><button class="chart-download" data-chart="customerChart" title="Download chart as PNG">↓ PNG</button></div><div class="chart-wrap customer-donut"><canvas id="customerChart" aria-label="Customer purchase distribution"></canvas></div></article>
+          <article class="panel top-customers"><div class="panel-heading"><div><h3>Top customers</h3><p>Ranked by purchase value</p></div><span class="chart-tag pink-tag">Top 5</span></div><div id="topCustomersList" class="rank-list"></div></article>
+        </div>
+      </section>
+
+      <section class="section-block" id="insights">
+        <div class="section-heading"><div><span class="section-kicker">FROM DATA TO DIRECTION</span><h2>Business insights</h2><p>Automatically generated observations from your current view.</p></div></div>
+        <div class="insight-grid" id="insightGrid"><div class="insight-tile"><span>✧</span><p>Insights will appear when data is available.</p></div></div>
+        <div class="performance-strip"><div><span class="strip-icon">↗</span><div><small>Sales growth</small><strong id="salesGrowth">—</strong></div></div><div><span class="strip-icon">◷</span><div><small>Highest sales month</small><strong id="highestMonth">—</strong></div></div><div><span class="strip-icon">◌</span><div><small>Lowest sales month</small><strong id="lowestMonth">—</strong></div></div><div><span class="strip-icon">✿</span><div><small>Business summary</small><strong id="businessSummary">Awaiting data</strong></div></div></div>
+      </section>
+
+      <section class="section-block" id="data">
+        <div class="section-heading data-heading"><div><span class="section-kicker">YOUR DATA, YOUR CONTROL</span><h2>Dataset management</h2><p>Upload a CSV, inspect records and export your analysis.</p></div><div class="data-actions"><label class="upload-button" for="csvUpload">＋ Upload CSV</label><input type="file" id="csvUpload" accept=".csv,text/csv" hidden><button class="secondary-button" id="downloadSample">↓ Sample CSV</button></div></div>
+        <div class="data-toolbar"><div class="search-box"><span>⌕</span><input id="tableSearch" type="search" placeholder="Search order, customer, product..." aria-label="Search records"></div><div class="table-actions"><label class="sort-label">Sort by <select id="sortSelect"><option value="date-desc">Newest date</option><option value="date-asc">Oldest date</option><option value="revenue-desc">Revenue: high to low</option><option value="revenue-asc">Revenue: low to high</option><option value="profit-desc">Profit: high to low</option><option value="customer-asc">Customer A–Z</option></select></label><button class="secondary-button" id="exportRecords">↓ Export filtered</button><button class="secondary-button" id="exportSummary">↓ Summary</button></div></div>
+        <div class="validation-message" id="validationMessage" role="status" aria-live="polite">✓ Demo dataset ready. Upload your own CSV to explore your data.</div>
+        <div class="table-wrap"><table><thead><tr><th>Order ID</th><th>Order date</th><th>Customer</th><th>Product</th><th>Category</th><th>Region</th><th>Qty</th><th>Revenue</th><th>Expenses</th><th>Profit</th></tr></thead><tbody id="dataTableBody"></tbody></table><div class="empty-state" id="emptyState" hidden><span>⌕</span><strong>No records found</strong><p>Try changing your filters or search term.</p></div></div>
+        <div class="table-footer"><span id="recordCount">Showing 0 records</span><div class="pagination"><button id="prevPage" aria-label="Previous page">‹</button><span id="pageInfo">1 / 1</span><button id="nextPage" aria-label="Next page">›</button></div></div>
+      </section>
+
+      <footer class="footer"><span>✿ BizBloom Analytics</span><span>Made for thoughtful, data-driven growth · Demo data is fictional</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
